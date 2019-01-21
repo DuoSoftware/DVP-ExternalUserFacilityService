@@ -1,7 +1,3 @@
-/**
- * Created by dinusha on 4/22/2015.
- */
-
 module.exports = {
 
     "Redis":
@@ -35,15 +31,6 @@ module.exports = {
 
     },
 
-    "Services":
-    {
-
-        "fileServiceHost": "SYS_FILESERVICE_HOST",
-        "fileServicePort": "SYS_FILESERVICE_PORT",
-        "fileServiceVersion":"SYS_FILESERVICE_VERSION"
-
-    },
-
     "Mongo":
     {
         "ip":"SYS_MONGO_HOST",
@@ -55,7 +42,7 @@ module.exports = {
     },
 
     "Host":{
-        "Port":"HOST_CDRPROCESSOR_PORT",
+        "Port":"HOST_EXTERNALUSERFACILITYSERVICE_PORT",
         "Version":"HOST_VERSION"
     },
 
