@@ -1,0 +1,35 @@
+{
+  "name": "DVP-ExtUserProductDetail",
+  "version": "1.0.0",
+  "description": "DVP-ExtUserFacility\r ================",
+  "main": "app.js",
+  "dependencies": {
+    "config": "^1.12.0",
+    "deepcopy": "^0.6.3",
+    "async": "^2.0.1",
+    "bluebird": "^3.4.6",
+    "dvp-common": "1.3.0",
+    "dvp-healthcheck": "^1.0.3",
+    "dvp-mongomodels": "^5.2.7",
+    "node-uuid": "^1.4.3",
+    "request": "^2.75.0",
+    "restify": "^4.0.3",
+    "restify-jwt": "^0.4.0",
+    "stringformat": "0.0.5",
+    "stringify": "^3.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "#"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "#"
+  },
+  "homepage": "#"
+}
