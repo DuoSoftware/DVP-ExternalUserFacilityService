@@ -57,7 +57,7 @@ var getExtUserFacilitiesBySSN = function(ssn){
 
 
 server.get('/DVP/API/:version/ExternalUser/facilities/:referenceID/all', jwt({secret: secret.Secret}), authorization({}), function(req, res, next){
-    var emptyArr = [];
+
     var reqId = nodeUuid.v1();
     try
     {
@@ -76,7 +76,7 @@ server.get('/DVP/API/:version/ExternalUser/facilities/:referenceID/all', jwt({se
         getExtUserFacilitiesBySSN(ssn)
         .then(function(response) {
 
-                if(response.facitlity_type){
+                if(response && response.facitlity_type){
                     var jsonString = JSON.stringify(response.facitlity_type)
                 }else{
                     var jsonString = JSON.stringify({});
@@ -86,13 +86,13 @@ server.get('/DVP/API/:version/ExternalUser/facilities/:referenceID/all', jwt({se
 
         })
         .catch(function(err) {
-            var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, emptyArr);
+            var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, []);
             logger.debug('[DVP-CDRProcessor.GetExternalUserFacility] - [%s] - API RESPONSE : %s', reqId, jsonString);
             res.end(jsonString);
         });
 
     } catch(ex) {
-        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, emptyArr);
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, []);
         logger.debug('[DVP-CDRProcessor.GetExternalUserFacility] - [%s] - API RESPONSE : %s', reqId, jsonString);
         res.end(jsonString);
     }
@@ -101,7 +101,7 @@ server.get('/DVP/API/:version/ExternalUser/facilities/:referenceID/all', jwt({se
 });
 
 server.get('/DVP/API/:version/ExternalUser/facilities/:referenceID', jwt({secret: secret.Secret}), authorization({}), function(req, res, next){
-    var emptyArr = [];
+    
     var reqId = nodeUuid.v1();
     try
     {
@@ -121,12 +121,16 @@ server.get('/DVP/API/:version/ExternalUser/facilities/:referenceID', jwt({secret
         .then(function(response) {
             var responseObj = {};
         
-            if(response.facitlity_type){
+            if(response && response.facitlity_type){
         
                 for (let [fac, values] of Object.entries(response.facitlity_type)) {
                     responseObj[fac] = responseObj[fac] || '';
-                    values.forEach(val => {
-                        responseObj[fac] += val.facility_id + " | ";
+                    values.forEach((val, index) => {
+                        
+                        if(val.facility_id) {
+                            var seperator = index < values.length - 1 ? ' | ' : '';
+                            responseObj[fac] += val.facility_id + seperator;
+                        }
                     });
                   }
                 
@@ -138,13 +142,13 @@ server.get('/DVP/API/:version/ExternalUser/facilities/:referenceID', jwt({secret
             res.end(jsonString);
         })
         .catch(function(err) {
-            var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, emptyArr);
+            var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, []);
             logger.debug('[DVP-CDRProcessor.GetExternalUserFacility] - [%s] - API RESPONSE : %s', reqId, jsonString);
             res.end(jsonString);
         });
 
     } catch(ex) {
-        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, emptyArr);
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, []);
         logger.debug('[DVP-CDRProcessor.GetExternalUserFacility] - [%s] - API RESPONSE : %s', reqId, jsonString);
         res.end(jsonString);
     }
